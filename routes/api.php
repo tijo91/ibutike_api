@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EntreeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SortieController;
+use App\Http\Controllers\UniteMesureController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +25,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResources([
+    'roles' => RoleController::class,
+    'users' => UserController::class,
+    'categories' => CategoryController::class,
+    'unite_mesures' => UniteMesureController::class,
+    'products' => ProductController::class,
+    'sorties' => SortieController::class,
+    'entrees' => EntreeController::class
+]);
+
+Route::get('/all_clear', function(){
+    $val1 = Artisan::call('cache:clear');
+    $val2 = Artisan::call('config:clear');
+    $val3 = Artisan::call('config:cache');
+    $val4 = Artisan::call('view:clear');
+    $val5 = Artisan::call('route:clear');
+    dd(Artisan::output());
+  })->name('all_clear');
