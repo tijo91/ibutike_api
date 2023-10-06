@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,6 +14,35 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = '';
+        $products_array = [];
+        $bool = false;
+
+        $products = Product::all();
+        $products_array = [
+            'bool'=>true,
+            'notification'=>'Products fetched successfully',
+            'products'=>$products
+        ];
+
+        // if(!Auth::check()){
+
+        //     $products_array = [
+        //         'bool'=>false,
+        //         'notification'=>'Products not fetched',
+        //         'products'=>null
+        //     ];
+
+        // }else{
+        //     $products = Product::all();
+        //     $products_array = [
+        //         'bool'=>true,
+        //         'notification'=>'Products fetched successfully',
+        //         'products'=>$products
+        //     ];
+        // }
+
+        return response()->json($products_array);
     }
 
     /**
