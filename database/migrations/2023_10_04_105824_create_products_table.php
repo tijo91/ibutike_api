@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('prix');
             $table->integer('qte_minimal');
             $table->integer('qte_disponible');
+            $table->string('photo');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();

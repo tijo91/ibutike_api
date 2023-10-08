@@ -24,7 +24,8 @@ class ProductSeeder extends Seeder
                 'name'=> 'Product_'.$i,
                 'prix'=> rand(100, 50000),
                 'qte_minimal'=> 5,
-                'qte_disponible'=>rand(5, 100)
+                'qte_disponible'=>rand(5, 100),
+                'photo'=>'photo_'.$i.'.jpg'
             ]);
         }
 
