@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntreeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SortieController;
@@ -36,6 +37,14 @@ Route::apiResources([
     'entrees' => EntreeController::class
 ]);
 
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+// Route::group(['middleware' => ['cors']], function () {
+
+// });
+
+
+
 Route::get('/all_clear', function(){
     $val1 = Artisan::call('cache:clear');
     $val2 = Artisan::call('config:clear');
@@ -43,4 +52,5 @@ Route::get('/all_clear', function(){
     $val4 = Artisan::call('view:clear');
     $val5 = Artisan::call('route:clear');
     dd(Artisan::output());
+
   })->name('all_clear');

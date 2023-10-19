@@ -43,6 +43,10 @@ class ProductController extends Controller
         // }
 
         return response()->json($products_array);
+        // ->withHeaders([
+        //     'Content-Type' => 'application/json',
+        //     'X-Header-One' => 'Header Value',
+        // ]);
     }
 
     /**
