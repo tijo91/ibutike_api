@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'role_id'=> 2,
             'first_name'=> 'Guy-Michel',
             'last_name'=> 'Iryikirundi',
-            'pseudo'=> 'igicocoro',
+            'pseudo'=> 'admin',
             'email'=> 'guymichel@gmail.com',
             'password'=> Hash::make(11111111),
             'telephone'=>'+25768381368'
