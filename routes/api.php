@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntreeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SortieController;
@@ -37,7 +38,8 @@ Route::apiResources([
     'unite_mesures' => UniteMesureController::class,
     'products' => ProductController::class,
     'sorties' => SortieController::class,
-    'entrees' => EntreeController::class
+    'entrees' => EntreeController::class,
+    'payments'=>PaymentController::class
 ]);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -54,6 +56,6 @@ Route::get('/all_clear', function(){
     $val3 = Artisan::call('config:cache');
     $val4 = Artisan::call('view:clear');
     $val5 = Artisan::call('route:clear');
-    dd(Artisan::output());
+    return response()->json('cache cleared');
 
   })->name('all_clear');
