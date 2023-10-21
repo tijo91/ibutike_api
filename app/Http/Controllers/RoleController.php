@@ -11,10 +11,14 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        //return response()->json(Product::get()->last());
+        if(session('token')==$request->token){
+            return \response()->json(Role::all());
+        }else{
+            return \response()->json('You must be connected.');
+        }
     }
 
     /**

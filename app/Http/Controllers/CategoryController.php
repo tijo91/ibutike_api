@@ -10,9 +10,14 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if(session('token')==$request->token){
+            return \response()->json(Category::all());
+        }else{
+            return \response()->json('You are not connected.');
+        }
     }
 
     /**

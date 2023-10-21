@@ -10,9 +10,14 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if(session('token')==$request->token){
+            return \response()->json(Payment::all());
+        }else{
+            return \response()->json('You must be connected.');
+        }
     }
 
     /**

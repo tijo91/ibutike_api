@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Auth::routes();
+
 Route::get('/', function () {
+    // dd($token = date('Y-m-d H:i:s',time()).substr((string)microtime(), 1, 4));
     return view('welcome');
-});
+})->name('home');
+
+Route::post('/login', [LoginController::class, 'login'])->name('login');

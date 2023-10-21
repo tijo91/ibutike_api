@@ -16,10 +16,11 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained('roles');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('pseudo');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('telephone')->unique();
+            $table->string('token')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();

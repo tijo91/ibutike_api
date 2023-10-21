@@ -6,6 +6,18 @@
 
         <title>Laravel</title>
 
+        {{-- <form action="{{route('login')}}" method="post">
+
+            @csrf
+            <input type="text" name="username" value="admin">
+            <input type="text" name="password" value="11111111">
+
+            <button class="btn btn-info" type="submit">
+                Login
+            </button>
+
+        </form> --}}
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
