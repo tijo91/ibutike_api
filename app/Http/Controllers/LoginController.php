@@ -16,44 +16,84 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
+
+    //     public function login(Request $request)
+    // {
+    //     $fields = $request->validate([
+    //         'username' => 'required',
+    //         'password' => 'required'
+    //     ]);
+    //     // check email if exist in database
+
+    //     $user = User::where('username', $fields['username'])->first();
+    //     // check password
+    //     if (!$user || !Hash::check($fields['password'], $user->password)) {
+    //         return response([
+    //             'message' => 'Wrong password'
+    //         ], 401);
+    //     }
+    //     // Make token available
+    //     $token = $user->createToken('myapptoken')->plainTextToken;
+    //     // return response header
+    //     $response = [
+    //         'token' => $token,
+    //     ];
+    //     return response($response, 201);
+    // }
+
+
         // $credentials = $request->validate([
         //     'username'=>['required'],
         //     'password'=>['required']
         // ]);
         $user = User::where('username',$request->username)->first();
-
+        // $user->createToken();
         // return \response()->json($user);
 
         // if(Auth::attempt(['username'=>$request->username,'password'=>$request->password])){
         //     return response()->json('okay');
-        if(Hash::check($request->password,$user->password)){
+        if($user || Hash::check($request->password,$user->password)){
 
             // $auth = Auth::user();
 
-            Session::start();
+            // Session::start();
 
-            session()->put('token',session('_token'));
-            session()->forget('_token');
-            session()->put('email',$user->email);
-            session()->put('full_name',$user->first_name.' '.$user->last_name);
+            // session()->put('token',session('_token'));
+            // session()->forget('_token');
+            // session()->put('email',$user->email);
+            // session()->put('full_name',$user->first_name.' '.$user->last_name);
             // $content = collect();
+
+            $data = collect();
+            $body = collect();
+            $headers = collect();
+
+            $token = $user->createToken(time())->plainTextToken;//Hash::make(time());
+            // return response($token);
+            $body->put('token',$token);
+            $body->put('fullname',$user->first_name.' '.$user->last_name);
+            $body->put('email',$user->email);
 
             // $content->put('body',session()->all());
 
-            // $headers = collect();
-
-            // $headers->put('Content-Type','application/json');
-            // $headers->put('authorization','application/json');
-
+            $headers->put('Content-Type','application/json');
+            $headers->put('authorization','Basic');
+            $headers->put('Access-Control-Allow-Origin', '*');
+            $headers->put('Access-Control-Allow-Methods', 'POST');
+            $headers->put('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+            $headers->put('Access-Control-Allow-Origin', 'false');
             // $content->put('headers',)
+
+            $data->put('body',$body);
+            $data->put('headers',$headers);
 
             // return response()->json($content);
 
-            return response()->json(session()->all());
+            return response($data);
 
         }else{
 
-            return response()->json('The credentials are not correct');
+            return response('The credentials are not correct');
 
         }
     }

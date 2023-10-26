@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntreeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -48,7 +49,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 // });
 
-
+Route::post('/home', [HomeController::class, 'home'])->name('home');
 
 Route::get('/all_clear', function(){
     $val1 = Artisan::call('cache:clear');
