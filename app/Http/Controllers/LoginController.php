@@ -16,32 +16,6 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-
-    //     public function login(Request $request)
-    // {
-    //     $fields = $request->validate([
-    //         'username' => 'required',
-    //         'password' => 'required'
-    //     ]);
-    //     // check email if exist in database
-
-    //     $user = User::where('username', $fields['username'])->first();
-    //     // check password
-    //     if (!$user || !Hash::check($fields['password'], $user->password)) {
-    //         return response([
-    //             'message' => 'Wrong password'
-    //         ], 401);
-    //     }
-    //     // Make token available
-    //     $token = $user->createToken('myapptoken')->plainTextToken;
-    //     // return response header
-    //     $response = [
-    //         'token' => $token,
-    //     ];
-    //     return response($response, 201);
-    // }
-
-
         // $credentials = $request->validate([
         //     'username'=>['required'],
         //     'password'=>['required']
@@ -89,11 +63,11 @@ class LoginController extends Controller
 
             // return response()->json($content);
 
-            return response($data);
+            return response($data,200);
 
         }else{
 
-            return response('The credentials are not correct');
+            return response('The credentials are not correct',400);
 
         }
     }
