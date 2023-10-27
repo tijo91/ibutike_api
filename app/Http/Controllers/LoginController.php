@@ -44,17 +44,12 @@ class LoginController extends Controller
 
 
 
-        if($user || Hash::check($request->password,$user->password)){
+        if($user==null || !Hash::check($request->password,$user->password)){
 
-            // $auth = Auth::user();
+            return response('The credentials are not correct',400);
 
-            // Session::start();
+        }else{
 
-            // session()->put('token',session('_token'));
-            // session()->forget('_token');
-            // session()->put('email',$user->email);
-            // session()->put('full_name',$user->first_name.' '.$user->last_name);
-            // $content = collect();
 
             $data = collect();
             $body = collect();
@@ -89,10 +84,6 @@ class LoginController extends Controller
             // return response()->json($content);
             // $statusCode->put('statusCode',200);
             return response($data,200,$headers_array);
-
-        }else{
-            // $statusCode->put('statusCode',400);
-            return response('The credentials are not correct',400);
 
         }
     }
