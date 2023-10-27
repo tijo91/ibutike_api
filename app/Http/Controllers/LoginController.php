@@ -20,12 +20,30 @@ class LoginController extends Controller
         //     'username'=>['required'],
         //     'password'=>['required']
         // ]);
-        $user = User::where('username',$request->username)->first();
-        // $user->createToken();
-        // return \response()->json($user);
 
-        // if(Auth::attempt(['username'=>$request->username,'password'=>$request->password])){
-        //     return response()->json('okay');
+        // $headers_array = [];
+        // array_push($headers_array,'Content-Type','application/json; charset=UTF-8');
+        // array_push($headers_array,'authorization','Basic');
+        // array_push($headers_array,'Access-Control-Allow-Origin', '*');
+        // array_push($headers_array,'Access-Control-Allow-Methods', 'POST');
+        // array_push($headers_array,'Access-Control-Allow-Headers', 'X-Auth-Token');
+
+        // // return response($request,200,$headers_array);
+
+        // return response()->json('allo',200,$headers_array);
+
+        // $headers_array = [];
+        // array_push($headers_array,'Content-Type','application/json');
+        // array_push($headers_array,'authorization','Basic');
+        // array_push($headers_array,'Access-Control-Allow-Origin', '*');
+        // array_push($headers_array,'Access-Control-Allow-Methods', 'POST');
+        // array_push($headers_array,'Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+        $user = User::where('username',$request->username)->first();
+        // $token = $user->createToken(time())->plainTextToken.' : this is token';
+        // return \response($token,200,$headers_array);
+
+
+
         if($user || Hash::check($request->password,$user->password)){
 
             // $auth = Auth::user();
@@ -40,7 +58,8 @@ class LoginController extends Controller
 
             $data = collect();
             $body = collect();
-            $headers = collect();
+            $headers_collect = collect();
+            $headers_array = [];
 
             $token = $user->createToken(time())->plainTextToken;//Hash::make(time());
             // return response($token);
@@ -50,23 +69,29 @@ class LoginController extends Controller
 
             // $content->put('body',session()->all());
 
-            $headers->put('Content-Type','application/json');
-            $headers->put('authorization','Basic');
-            $headers->put('Access-Control-Allow-Origin', '*');
-            $headers->put('Access-Control-Allow-Methods', 'POST');
-            $headers->put('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
-            $headers->put('Access-Control-Allow-Origin', 'false');
-            // $content->put('headers',)
+            $headers_collect->put('Content-Type','application/json');
+            $headers_collect->put('authorization','Basic');
+            $headers_collect->put('Access-Control-Allow-Origin', '*');
+            $headers_collect->put('Access-Control-Allow-Methods', 'POST');
+            $headers_collect->put('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+
+
+            array_push($headers_array,'Content-Type','application/json');
+            array_push($headers_array,'authorization','Basic');
+            array_push($headers_array,'Access-Control-Allow-Origin', '*');
+            array_push($headers_array,'Access-Control-Allow-Methods', 'POST');
+            array_push($headers_array,'Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+
 
             $data->put('body',$body);
-            $data->put('headers',$headers);
-
+            $data->put('headers',$headers_collect);
+            // $data->put('statusCode',200);
             // return response()->json($content);
-
-            return response($data,200);
+            // $statusCode->put('statusCode',200);
+            return response($data,200,$headers_array);
 
         }else{
-
+            // $statusCode->put('statusCode',400);
             return response('The credentials are not correct',400);
 
         }
