@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('price')->unique();
             $table->string('photo')->unique();
-            $table->integer('description')->nullable();
+            $table->string('description')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
