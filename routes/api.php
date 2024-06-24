@@ -11,7 +11,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-//routes to userscontroller
 
 
 /***
@@ -44,7 +43,7 @@ Route::middleware(['auth:sanctum', 'api'])->group( function(){
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-    // Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::post('users', [UserController::class, 'store'])->name('users.store');
     Route::get('users/{product}', [UserController::class, 'show'])->name('users.show');
     Route::get('users/{product}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('users/{product}', [UserController::class, 'update'])->name('users.update');
