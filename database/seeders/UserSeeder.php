@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate([
             'first_name'=>'Jean Thierry',
             'last_name'=>'Havyarimana',
-            'email'=>'jeanthierryh@gmail',
+            'email'=>'jeanthierryh@gmail.com',
             'telephone'=>'61059053',
             'password'=>Hash::make(11111111),
         ]);
