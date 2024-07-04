@@ -10,7 +10,19 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+/**
+ *
+ * START : THE ROUTES WITH NO NEED TO GET CONNECTED
+ *
+*/
 
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
+
+/**
+ *
+ * END : THE ROUTES WITH NO NEED TO GET CONNECTED
+ *
+*/
 
 
 /***
@@ -32,7 +44,7 @@ Route::middleware(['auth:sanctum', 'api'])->group( function(){
     Route::delete('shops/{shop}', [ShopController::class, 'destroy'])->name('shops.destroy');
 
     //routes to productscontroller
-    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('products', [ProductController::class, 'store'])->name('products.store');
     Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');

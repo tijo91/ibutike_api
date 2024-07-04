@@ -13,6 +13,34 @@ class CategoryController extends Controller
     public function index()
     {
         //
+
+        $auth = auth()->user();
+
+        $api_token = $auth->api_token;
+
+        $categories = collect();
+
+        if(auth('sanctum')->check() && auth()->role_id==1){
+
+            $categories = Category::all();
+            $data = [
+                "message_success"=>"",
+                "categories"=>$categories,
+                "api_token"=>$api_token
+            ];
+
+            return response($data,400);
+        }else{
+            $data = [
+                "message_fail"=>"You are not authorized to access this page",
+                "categories"=>$categories,
+                "api_token"=>$api_token
+            ];
+
+            return response($data,200);
+        }
+
+
     }
 
     /**
@@ -21,6 +49,33 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        $auth = auth()->user();
+
+        $api_token = $auth->api_token;
+
+        $categories = collect();
+
+        if($auth->role_id!=1){
+
+            $data = [
+                "message_success"=>"",
+                "categories"=>$categories,
+                "api_token"=>$api_token
+            ];
+
+            return response($data,200);
+
+        }else{
+
+            $data = [
+                "message_fail"=>"",
+                "categories"=>$categories,
+                "api_token"=>$api_token
+            ];
+
+            return response($data,400);
+
+        }
     }
 
     /**
